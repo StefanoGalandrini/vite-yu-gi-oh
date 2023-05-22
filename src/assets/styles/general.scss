@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap");
 
+$bgColor: #d48f38;
+
 *,
 *::before,
 *::after {
@@ -10,4 +12,8 @@
 
 :root {
 	font-family: "Open Sans", sans-serif;
+}
+
+main {
+	background-color: $bgColor;
 }
