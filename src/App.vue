@@ -1,7 +1,6 @@
 <script>
 import AppCardList from "./components/AppCardList.vue";
 import AppHeader from "./components/AppHeader.vue";
-import AppResult from "./components/AppResult.vue";
 import AppSearch from "./components/AppSearch.vue";
 import axios from "axios";
 import {store} from "./store";
@@ -16,7 +15,6 @@ export default {
 	components: {
 		AppHeader,
 		AppSearch,
-		AppResult,
 		AppCardList,
 	},
 
@@ -33,8 +31,6 @@ export default {
 
 	<main>
 		<AppSearch />
-
-		<AppResult />
 
 		<AppCardList />
 	</main>
