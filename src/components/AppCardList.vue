@@ -13,17 +13,26 @@ export default {
 </script>
 
 <template>
-	<div v-for="card in store.cardList" :key="card.id">
+	<!-- <div v-for="card in store.cardList" :key="card.id">
 		{{ card.name }}
-		{{ card.type }}
-		{{ card.id }}
-		<img src="{{ card.card_images.image_url_small }}" alt="" />
-	</div>
+		{{ card.archetype }}
+		{{ card.card_images[0].image_url_small }}
+		<img :src="card.card_images[0].image_url_small" />
+	</div> -->
 	<div class="container">
-		AppCardList
-
-		<AppCard />
+		<AppCard
+			v-for="card in store.cardList"
+			:key="card.id"
+			:name="card.name"
+			:archetype="card.archetype"
+			:source="card.card_images[0].image_url_small" />
 	</div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.5rem;
+}
+</style>
