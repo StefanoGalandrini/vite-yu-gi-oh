@@ -21,16 +21,16 @@ export default {
 	<div class="container">
 		<img :src="source" alt="" />
 		<p>{{ name }}</p>
-		<p>{{ archetype }}</p>
+		<p v-if="archetype != undefined">{{ archetype }}</p>
 	</div>
 </template>
 
 <style lang="scss" scoped>
 .container {
-	width: calc((100% - 4 * 1.5rem) / 5);
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	flex-wrap: wrap;
+	flex-basis: calc((100% - 4 * 1.5rem) / 5);
 }
 </style>
