@@ -24,7 +24,7 @@ export default {
 			v-for="card in store.cardList"
 			:key="card.id"
 			:name="card.name"
-			:source="card.card_images[0].image_url_small"
+			:source="card.card_images[0].image_url"
 			:archetype="card.archetype ? card.archetype : ''" />
 	</div>
 </template>
