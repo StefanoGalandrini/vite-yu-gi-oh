@@ -17,8 +17,6 @@ export default {
 
 	methods: {
 		emitUpdateArchetype(event) {
-			console.log(event);
-
 			this.$emit("update", event.target.value);
 		},
 

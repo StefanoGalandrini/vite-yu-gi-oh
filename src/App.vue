@@ -12,8 +12,8 @@ export default {
 			// booleans for AppLoader
 			isLoadingCards: true,
 			isLoadingArch: true,
-
 			selectedArchetype: "",
+			requestString: "",
 			store,
 		};
 	},
@@ -22,23 +22,27 @@ export default {
 		// loads cards from API
 		requestDataFromApi() {
 			this.isLoadingCards = true;
-			axios
-				.get(`${store.baseUrl}cardinfo.php?num=1500&offset=0`)
-				.then((response) => {
-					this.store.cardList = response.data.data;
-					this.isLoadingCards = false;
-				});
+
+			this.selectedArchetype === ""
+				? (this.requestString = `${store.baseUrl}cardinfo.php?num=800&offset=0"`)
+				: (this.requestString = `${store.baseUrl}cardinfo.php?archetype=${this.selectedArchetype}`);
+
+			axios.get(`${this.requestString}`).then((response) => {
+				this.store.cardList = response.data.data;
+				this.isLoadingCards = false;
+			});
 		},
 
 		requestArchetypes() {
-			// loads archetypes from API
+			// loads all archetypes from API
 			this.isLoadingArch = true;
 			this.store.archetypes.length = 0;
+			const tempArray = [];
 			axios.get(store.baseUrl + "archetypes.php").then((response) => {
-				const data = response.data;
-				for (let i = 0; i < 350; i++) {
-					store.archetypes.push(data[i].archetype_name);
-				}
+				this.tempArray = response.data;
+				this.tempArray.forEach((element) => {
+					this.store.archetypes.push(element.archetype_name);
+				});
 			});
 			this.isLoadingArch = false;
 		},
@@ -46,11 +50,13 @@ export default {
 		// receives value from option select and changes Archetype
 		updateSelectedArchetype(value) {
 			this.selectedArchetype = value;
+			this.requestDataFromApi();
 		},
 
 		// receives click from AppSearch button and resets Archetype
 		resetInputArchetype() {
 			this.selectedArchetype = "";
+			this.requestDataFromApi();
 		},
 	},
 
