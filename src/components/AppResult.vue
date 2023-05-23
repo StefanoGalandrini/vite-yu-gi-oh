@@ -16,9 +16,10 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+$bgdark: #212529;
 .results {
 	width: 100%;
-	background-color: #212529;
+	background-color: $bgdark;
 	margin-bottom: -1.5rem;
 	height: 8vh;
 	display: flex;

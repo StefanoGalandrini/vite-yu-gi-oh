@@ -47,6 +47,11 @@ export default {
 		updateSelectedArchetype(value) {
 			this.selectedArchetype = value;
 		},
+
+		// receives click from AppSearch button and resets Archetype
+		resetInputArchetype() {
+			this.selectedArchetype = "";
+		},
 	},
 
 	components: {
@@ -76,7 +81,8 @@ export default {
 			<!-- @update is the event from AppSearch emit -->
 			<AppSearch
 				:selectedArchetype="selectedArchetype"
-				@update="updateSelectedArchetype" />
+				@update="updateSelectedArchetype"
+				@reset="resetInputArchetype" />
 
 			<!-- shows cards based on selected Archetype -->
 			<AppCardList :selectedArchetype="selectedArchetype" />
