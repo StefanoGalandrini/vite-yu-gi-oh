@@ -9,15 +9,17 @@ import {store} from "./store";
 export default {
 	data() {
 		return {
+			// booleans for AppLoader
 			isLoadingCards: true,
 			isLoadingArch: true,
-			cardList: [],
+
 			selectedArchetype: "",
 			store,
 		};
 	},
 
 	methods: {
+		// loads cards from API
 		requestDataFromApi() {
 			this.isLoadingCards = true;
 			axios
@@ -29,6 +31,7 @@ export default {
 		},
 
 		requestArchetypes() {
+			// loads archetypes from API
 			this.isLoadingArch = true;
 			this.store.archetypes.length = 0;
 			axios.get(store.baseUrl + "archetypes.php").then((response) => {
@@ -40,6 +43,7 @@ export default {
 			this.isLoadingArch = false;
 		},
 
+		// receives value from option select and changes Archetype
 		updateSelectedArchetype(value) {
 			this.selectedArchetype = value;
 		},
@@ -53,7 +57,7 @@ export default {
 	},
 
 	created() {
-		// creates an array for cards and another for archetypes
+		// create initial array for cards and for archetypes
 		this.requestDataFromApi();
 		this.requestArchetypes();
 	},
@@ -61,17 +65,20 @@ export default {
 </script>
 
 <template>
-	<div>{{ isLoadingCards }} {{ isLoadingArch }}</div>
+	<!-- AppLoader shown only when loading from API -->
 	<AppLoader v-if="isLoadingCards || isLoadingArch" />
 
+	<!-- When everything is loaded, components in "container" are visible -->
 	<div v-else class="container">
 		<AppHeader />
 
 		<main>
+			<!-- @update is the event from AppSearch emit -->
 			<AppSearch
 				:selectedArchetype="selectedArchetype"
 				@update="updateSelectedArchetype" />
 
+			<!-- shows cards based on selected Archetype -->
 			<AppCardList :selectedArchetype="selectedArchetype" />
 		</main>
 	</div>
