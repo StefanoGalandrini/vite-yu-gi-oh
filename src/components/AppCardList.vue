@@ -2,6 +2,7 @@
 import AppResult from "./AppResult.vue";
 import AppCard from "./AppCard.vue";
 import {store} from "../store";
+
 export default {
 	data() {
 		return {
@@ -9,19 +10,38 @@ export default {
 		};
 	},
 
+	props: {
+		selectedArchetype: {
+			type: String,
+			required: true,
+		},
+	},
+
 	components: {
 		AppCard,
 		AppResult,
+	},
+
+	computed: {
+		filteredCards() {
+			if (this.selectedArchetype === "") {
+				return store.cardList;
+			} else {
+				return store.cardList.filter(
+					(card) => card.archetype === this.selectedArchetype,
+				);
+			}
+		},
 	},
 };
 </script>
 
 <template>
 	<div class="container">
-		<AppResult :totalCards="store.cardList.length" />
+		<AppResult :totalCards="filteredCards.length" />
 
 		<AppCard
-			v-for="card in store.cardList"
+			v-for="card in filteredCards"
 			:key="card.id"
 			:name="card.name"
 			:source="card.card_images[0].image_url"
