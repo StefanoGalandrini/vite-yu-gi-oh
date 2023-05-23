@@ -9,7 +9,8 @@ import {store} from "./store";
 export default {
 	data() {
 		return {
-			isLoading: true,
+			isLoadingCards: true,
+			isLoadingArch: true,
 			cardList: [],
 			selectedArchetype: "",
 			store,
@@ -18,27 +19,25 @@ export default {
 
 	methods: {
 		requestDataFromApi() {
-			isLoading: true;
+			this.isLoadingCards = true;
 			axios
 				.get(`${store.baseUrl}cardinfo.php?num=1500&offset=0`)
 				.then((response) => {
 					this.store.cardList = response.data.data;
-					this.isLoading = false;
+					this.isLoadingCards = false;
 				});
 		},
 
 		requestArchetypes() {
-			isLoading: true;
+			this.isLoadingArch = true;
 			this.store.archetypes.length = 0;
 			axios.get(store.baseUrl + "archetypes.php").then((response) => {
 				const data = response.data;
-				console.log(data);
-				for (let i = 0; i < 150; i++) {
-					console.log(data[i]);
+				for (let i = 0; i < 350; i++) {
 					store.archetypes.push(data[i].archetype_name);
 				}
 			});
-			this.isLoading = false;
+			this.isLoadingArch = false;
 		},
 
 		updateSelectedArchetype(value) {
@@ -47,10 +46,10 @@ export default {
 	},
 
 	components: {
+		AppLoader,
 		AppHeader,
 		AppSearch,
 		AppCardList,
-		AppLoader,
 	},
 
 	created() {
@@ -62,7 +61,8 @@ export default {
 </script>
 
 <template>
-	<AppLoader v-if="isLoading" />
+	<div>{{ isLoadingCards }} {{ isLoadingArch }}</div>
+	<AppLoader v-if="isLoadingCards || isLoadingArch" />
 
 	<div v-else class="container">
 		<AppHeader />
@@ -79,4 +79,8 @@ export default {
 
 <style lang="scss">
 @use "./assets/styles/general.scss" as *;
+
+html {
+	overflow: auto;
+}
 </style>

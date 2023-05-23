@@ -39,19 +39,20 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-	width: 50%;
+	width: 70%;
 	margin-inline: auto;
 	display: flex;
-	justify-content: center;
+	justify-content: start;
+	align-items: center;
 	padding: 1.5rem;
 	gap: 1rem;
 
 	select {
-		width: 80%;
+		width: 40%;
 		height: 3rem;
 		font-size: 1.2rem;
 		padding: 0.5rem 1rem;
-		margin: 1.5rem 10rem;
+		margin: 1.25rem 0;
 	}
 }
 </style>

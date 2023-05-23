@@ -53,6 +53,7 @@ export default {
 .container {
 	background-color: white;
 	width: 80vw;
+	height: min-content;
 	margin-inline: auto;
 	display: flex;
 	flex-wrap: wrap;
