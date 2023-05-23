@@ -79,6 +79,7 @@ export default {
 
 		<main>
 			<!-- @update is the event from AppSearch emit -->
+			<!-- @reset is the event from Reset Button emit -->
 			<AppSearch
 				:selectedArchetype="selectedArchetype"
 				@update="updateSelectedArchetype"
